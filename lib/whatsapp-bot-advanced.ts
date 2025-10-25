@@ -221,7 +221,7 @@ async function handleSearchDiameter(phoneNumber: string, message: string, sessio
   let resultMessage = `🎯 *${products.length} pneu(x) trouvé(s)*\n\n`;
   resultMessage += `Dimensions: ${session.searchCriteria!.width}/${session.searchCriteria!.height}R${session.searchCriteria!.diameter}\n\n`;
 
-  products.forEach((product, index) => {
+  products.forEach((product: any, index: number) => {
     const promo = product.isOverstock ? `🔥 -${product.discountPercent}% ` : '';
     const stock = product.stockQuantity > 0 ? `✅ ${product.stockQuantity} en stock` : '⏳ Sur commande';
     
@@ -456,20 +456,22 @@ async function showOrderHistory(phoneNumber: string, userId: string, session: Us
 
   let historyMessage = `📦 *Vos Commandes* (${orders.length})\n\n`;
 
-  orders.forEach((order, index) => {
-    const statusEmoji = {
+  orders.forEach((order: any, index: number) => {
+    const statusEmojiMap = {
       pending: '⏳',
       paid: '✅',
       ready: '📦',
       completed: '🎉',
-    }[order.status] || '❓';
+    };
+    const statusEmoji = statusEmojiMap[order.status as keyof typeof statusEmojiMap] || '❓';
 
-    const statusLabel = {
+    const statusLabelMap = {
       pending: 'En attente',
       paid: 'Payée',
       ready: 'Prête',
       completed: 'Terminée',
-    }[order.status] || order.status;
+    };
+    const statusLabel = statusLabelMap[order.status as keyof typeof statusLabelMap] || order.status;
 
     historyMessage += `*${index + 1}. ${order.orderNumber}*\n`;
     historyMessage += `${statusEmoji} ${statusLabel} | ${Number(order.totalAmount * 1.2).toFixed(2)}€\n`;

@@ -190,7 +190,7 @@ async function handleSearchDiameter(phoneNumber: string, message: string, sessio
   let resultMessage = `🎯 *${products.length} pneu(x) trouvé(s)*\n\n`;
   resultMessage += `Dimensions: ${session.searchCriteria!.width}/${session.searchCriteria!.height}R${session.searchCriteria!.diameter}\n\n`;
 
-  products.forEach((product, index) => {
+  products.forEach((product: any, index: number) => {
     const promo = product.isOverstock ? `🔥 -${product.discountPercent}% ` : '';
     const stock = product.stockQuantity > 0 ? `✅ ${product.stockQuantity} en stock` : '⏳ Sur commande';
     

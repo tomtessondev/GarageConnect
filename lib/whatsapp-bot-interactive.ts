@@ -143,11 +143,11 @@ async function startSearch(phoneNumber: string, session: UserSession) {
     orderBy: { width: 'asc' },
   });
 
-  const availableWidths = widths.map(p => p.width);
+  const availableWidths = widths.map((p: { width: number }) => p.width);
 
   // Compter les modèles pour chaque largeur
   const widthCounts = await Promise.all(
-    availableWidths.map(async (width) => {
+    availableWidths.map(async (width: number) => {
       const products = await prisma.product.findMany({
         where: {
           width,
@@ -205,11 +205,11 @@ async function handleWidthSelection(phoneNumber: string, message: string, sessio
     orderBy: { height: 'asc' },
   });
 
-  const availableHeights = heights.map(p => p.height);
+  const availableHeights = heights.map((p: { height: number }) => p.height);
   
   // Compter les modèles pour chaque hauteur
   const heightCounts = await Promise.all(
-    availableHeights.map(async (height) => {
+    availableHeights.map(async (height: number) => {
       const products = await prisma.product.findMany({
         where: {
           width: selectedWidth,
@@ -265,7 +265,7 @@ async function handleHeightSelection(phoneNumber: string, message: string, sessi
     orderBy: { diameter: 'asc' },
   });
 
-  const availableDiameters = diameters.map(p => p.diameter);
+  const availableDiameters = diameters.map((p: { diameter: number }) => p.diameter);
   session.availableOptions!.diameters = availableDiameters;
   session.step = 'select_diameter';
   await setSession(`session:${phoneNumber}`, session);
@@ -275,7 +275,7 @@ async function handleHeightSelection(phoneNumber: string, message: string, sessi
   responseMessage += `✅ Hauteur: ${selectedHeight}\n\n`;
   responseMessage += `⭕ *Sélectionnez le DIAMÈTRE*\n\n`;
   
-  availableDiameters.forEach((diameter, index) => {
+  availableDiameters.forEach((diameter: number, index: number) => {
     responseMessage += `${index + 1}. R${diameter}\n`;
   });
   
@@ -324,7 +324,7 @@ async function handleDiameterSelection(phoneNumber: string, message: string, ses
   resultMessage += `✅ Hauteur: ${session.searchCriteria!.height}\n`;
   resultMessage += `✅ Diamètre: R${selectedDiameter}\n\n`;
 
-  products.forEach((product, index) => {
+  products.forEach((product: any, index: number) => {
     const promo = product.isOverstock ? `🔥 -${product.discountPercent}% ` : '';
     
     resultMessage += `*${index + 1}. ${product.brand} ${product.model}*\n`;
@@ -594,20 +594,22 @@ async function showOrderHistory(phoneNumber: string, userId: string, session: Us
 
   let historyMessage = `📦 *VOS COMMANDES* (${orders.length})\n\n`;
 
-  orders.forEach((order, index) => {
-    const statusEmoji = {
+  orders.forEach((order: any, index: number) => {
+    const statusEmojiMap = {
       pending: '⏳',
       paid: '✅',
       ready: '📦',
       completed: '🎉',
-    }[order.status] || '❓';
+    };
+    const statusEmoji = statusEmojiMap[order.status as keyof typeof statusEmojiMap] || '❓';
 
-    const statusLabel = {
+    const statusLabelMap = {
       pending: 'En attente',
       paid: 'Payée',
       ready: 'Prête',
       completed: 'Terminée',
-    }[order.status] || order.status;
+    };
+    const statusLabel = statusLabelMap[order.status as keyof typeof statusLabelMap] || order.status;
 
     historyMessage += `*${index + 1}. ${order.orderNumber}*\n`;
     historyMessage += `${statusEmoji} ${statusLabel} | ${Number(order.totalAmount * 1.2).toFixed(2)}€\n`;

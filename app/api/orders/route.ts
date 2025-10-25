@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
     // Calculer le total
     let totalAmount = 0;
     const orderItems = data.items.map((item) => {
-      const product = products.find((p) => p.id === item.productId);
+      const product = products.find((p: { id: string }) => p.id === item.productId);
       if (!product) throw new Error(`Product ${item.productId} not found`);
       
       const subtotal = Number(product.priceRetail) * item.quantity;

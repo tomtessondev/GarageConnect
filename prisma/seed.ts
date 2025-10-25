@@ -1,4 +1,4 @@
-import { PrismaClient, ProductCondition } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -123,7 +123,7 @@ async function main() {
         stockQuantity: tyre.stock,
         isOverstock: tyre.overstock,
         discountPercent: tyre.discount || null,
-        condition: ProductCondition.new,
+        condition: 'new',
         distributorId: distributor.id,
       },
     });

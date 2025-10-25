@@ -4,11 +4,12 @@ import { generatePickupQRCode } from '@/lib/qrcode-generator';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { orderId: string } }
+  { params }: { params: Promise<{ orderId: string }> }
 ) {
   try {
+    const { orderId } = await params;
     const order = await prisma.order.findUnique({
-      where: { id: params.orderId },
+      where: { id: orderId },
     });
 
     if (!order) {
@@ -22,7 +23,7 @@ export async function GET(
     const qrBuffer = await generatePickupQRCode(order.orderNumber, order.id);
 
     // Retourner l'image
-    return new NextResponse(qrBuffer, {
+    return new NextResponse(qrBuffer as unknown as BodyInit, {
       headers: {
         'Content-Type': 'image/png',
         'Cache-Control': 'public, max-age=31536000, immutable',
