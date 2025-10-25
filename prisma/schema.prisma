@@ -1,0 +1,155 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+        
+model User {
+  id                String   @id @default(uuid())
+  phoneNumber       String   @unique @map("phone_number")
+  email             String?
+  firstName         String?  @map("first_name")
+  lastName          String?  @map("last_name")
+  whatsappContactId String?  @map("whatsapp_contact_id")
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @updatedAt @map("updated_at")
+  
+  orders            Order[]
+  conversations     WhatsAppConversation[]
+
+  @@map("users")
+}
+
+enum ProductCondition {
+  new
+  premium
+  recycled
+}
+
+model Product {
+  id              String            @id @default(uuid())
+  sku             String            @unique
+  brand           String
+  model           String
+  width           Int
+  height          Int
+  diameter        Int
+  priceCost       Decimal?          @map("price_cost") @db.Decimal(10, 2)
+  priceRetail     Decimal           @map("price_retail") @db.Decimal(10, 2)
+  stockQuantity   Int               @default(0) @map("stock_quantity")
+  isOverstock     Boolean           @default(false) @map("is_overstock")
+  discountPercent Int?              @map("discount_percent")
+  condition       ProductCondition  @default(new)
+  distributorId   Int               @map("distributor_id")
+  createdAt       DateTime          @default(now()) @map("created_at")
+  updatedAt       DateTime          @updatedAt @map("updated_at")
+  
+  orderItems      OrderItem[]
+
+  @@map("products")
+}
+
+enum OrderStatus {
+  pending
+  paid
+  ready_pickup
+  completed
+  cancelled
+}
+
+model Order {
+  id                    String      @id @default(uuid())
+  userId                String      @map("user_id")
+  orderNumber           String      @unique @map("order_number")
+  status                OrderStatus @default(pending)
+  totalAmount           Decimal     @map("total_amount") @db.Decimal(10, 2)
+  stripePaymentIntentId String?     @map("stripe_payment_intent_id")
+  scheduledPickupDate   DateTime?   @map("scheduled_pickup_date")
+  createdAt             DateTime    @default(now()) @map("created_at")
+  updatedAt             DateTime    @updatedAt @map("updated_at")
+  
+  user                  User        @relation(fields: [userId], references: [id])
+  items                 OrderItem[]
+  pickupTracking        PickupTracking?
+  conversations         WhatsAppConversation[]
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id        String   @id @default(uuid())
+  orderId   String   @map("order_id")
+  productId String   @map("product_id")
+  quantity  Int
+  unitPrice Decimal  @map("unit_price") @db.Decimal(10, 2)
+  subtotal  Decimal  @db.Decimal(10, 2)
+  
+  order     Order    @relation(fields: [orderId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id])
+
+  @@map("order_items")
+}
+
+enum PickupStatus {
+  pending
+  picked_up
+  validated
+}
+
+model PickupTracking {
+  id               String        @id @default(uuid())
+  orderId          String        @unique @map("order_id")
+  status           PickupStatus  @default(pending)
+  pickedUpDate     DateTime?     @map("picked_up_date")
+  validatedDate    DateTime?     @map("validated_date")
+  warehouseStaffId String?       @map("warehouse_staff_id")
+  notes            String?
+  
+  order            Order         @relation(fields: [orderId], references: [id])
+
+  @@map("pickup_tracking")
+}
+
+enum MessageDirection {
+  inbound
+  outbound
+}
+
+enum MessageType {
+  text
+  form
+  image
+  document
+}
+
+model WhatsAppConversation {
+  id              String           @id @default(uuid())
+  userId          String           @map("user_id")
+  orderId         String?          @map("order_id")
+  messageText     String           @map("message_text")
+  direction       MessageDirection
+  messageType     MessageType      @map("message_type")
+  twilioMessageSid String?         @map("twilio_message_sid")
+  createdAt       DateTime         @default(now()) @map("created_at")
+  
+  user            User             @relation(fields: [userId], references: [id])
+  order           Order?           @relation(fields: [orderId], references: [id])
+
+  @@map("whatsapp_conversations")
+}
+
+model Distributor {
+  id           Int       @id @default(autoincrement())
+  name         String
+  contactEmail String?   @map("contact_email")
+  apiKey       String?   @map("api_key")
+  lastSync     DateTime? @map("last_sync")
+  syncInterval Int       @default(3600) @map("sync_interval")
+
+  @@map("distributors")
+}

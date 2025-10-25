@@ -1,0 +1,105 @@
+[
+  [
+    "session:+590691260199",
+    {
+      "data": {
+        "step": "welcome",
+        "cart": [],
+        "searchCriteria": {
+          "width": 185,
+          "height": 65,
+          "diameter": 15
+        },
+        "availableOptions": {
+          "widths": [
+            185,
+            195,
+            205,
+            225
+          ],
+          "heights": [
+            65
+          ],
+          "diameters": [
+            15
+          ]
+        },
+        "lastResults": [
+          {
+            "id": "d7395f31-90de-4363-9117-1ad6339e9c63",
+            "sku": "DUNLOP_STREETRESPONSE_2_185_65_15",
+            "brand": "Dunlop",
+            "model": "StreetResponse 2",
+            "width": 185,
+            "height": 65,
+            "diameter": 15,
+            "priceCost": "57.2",
+            "priceRetail": "88",
+            "stockQuantity": 22,
+            "isOverstock": false,
+            "discountPercent": null,
+            "condition": "new",
+            "distributorId": 1,
+            "createdAt": "2025-10-25T02:01:20.865Z",
+            "updatedAt": "2025-10-25T02:01:20.865Z"
+          },
+          {
+            "id": "548b578c-63bd-4728-bab0-c004061b20a9",
+            "sku": "BRIDGESTONE_ECOPIA_EP150_185_65_15",
+            "brand": "Bridgestone",
+            "model": "Ecopia EP150",
+            "width": 185,
+            "height": 65,
+            "diameter": 15,
+            "priceCost": "59.8",
+            "priceRetail": "92",
+            "stockQuantity": 18,
+            "isOverstock": false,
+            "discountPercent": null,
+            "condition": "new",
+            "distributorId": 1,
+            "createdAt": "2025-10-25T02:01:15.753Z",
+            "updatedAt": "2025-10-25T02:01:15.753Z"
+          },
+          {
+            "id": "78aaf8c8-0cbf-4fc8-aed6-f875c6671829",
+            "sku": "MICHELIN_ENERGY_SAVER_185_65_15",
+            "brand": "Michelin",
+            "model": "Energy Saver",
+            "width": 185,
+            "height": 65,
+            "diameter": 15,
+            "priceCost": "61.75",
+            "priceRetail": "95",
+            "stockQuantity": 15,
+            "isOverstock": false,
+            "discountPercent": null,
+            "condition": "new",
+            "distributorId": 1,
+            "createdAt": "2025-10-25T02:01:11.984Z",
+            "updatedAt": "2025-10-25T02:01:11.984Z"
+          },
+          {
+            "id": "0a511a57-1d64-4c1c-a662-28da348d9462",
+            "sku": "PIRELLI_CINTURATO_ALL_SEASON_185_65_15",
+            "brand": "Pirelli",
+            "model": "Cinturato All Season",
+            "width": 185,
+            "height": 65,
+            "diameter": 15,
+            "priceCost": "72.8",
+            "priceRetail": "112",
+            "stockQuantity": 16,
+            "isOverstock": false,
+            "discountPercent": null,
+            "condition": "new",
+            "distributorId": 1,
+            "createdAt": "2025-10-25T02:01:19.039Z",
+            "updatedAt": "2025-10-25T02:01:19.039Z"
+          }
+        ]
+      },
+      "lastActivity": 1761364519679
+    }
+  ]
+]
