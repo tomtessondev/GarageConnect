@@ -18,12 +18,12 @@ export default function HomePage() {
         <div className="text-center max-w-4xl mx-auto">
           {/* Logo/Title Card */}
           <div className="mb-12">
-            <div className="flex items-center justify-center gap-2 sm:gap-3 mb-6 flex-wrap">
-              <CircleDot className="w-10 h-10 sm:w-16 sm:h-16 text-blue-600 animate-spin-slow" />
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
+            <div className="flex items-center justify-center gap-2 sm:gap-3 mb-6">
+              <CircleDot className="w-8 h-8 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 text-blue-600 animate-spin-slow flex-shrink-0" />
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent whitespace-nowrap">
                 GarageConnect
               </h1>
-              <CircleDot className="w-10 h-10 sm:w-16 sm:h-16 text-purple-600 animate-spin-slow" />
+              <CircleDot className="w-8 h-8 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 text-purple-600 animate-spin-slow flex-shrink-0" />
             </div>
             <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 sm:p-6 shadow-xl border border-gray-200 inline-block mx-4">
               <p className="text-lg sm:text-xl md:text-2xl text-gray-800 mb-2 font-bold">
