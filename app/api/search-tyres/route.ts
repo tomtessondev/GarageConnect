@@ -10,6 +10,7 @@ const searchSchema = z.object({
   minPrice: z.number().optional(),
   maxPrice: z.number().optional(),
   inStock: z.boolean().optional(),
+  getOptionsOnly: z.boolean().optional(),
 });
 
 export async function POST(request: NextRequest) {
@@ -17,6 +18,40 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const filters = searchSchema.parse(body);
 
+    // If requesting available options only
+    if (filters.getOptionsOnly) {
+      const where: Record<string, number> = {};
+      
+      if (filters.width) where.width = filters.width;
+      if (filters.height) where.height = filters.height;
+      if (filters.diameter) where.diameter = filters.diameter;
+
+      // Get distinct values for each dimension based on current filters
+      const products = await prisma.product.findMany({
+        where,
+        select: {
+          width: true,
+          height: true,
+          diameter: true,
+        },
+      });
+
+      // Extract unique values
+      const widths = [...new Set(products.map(p => p.width))];
+      const heights = [...new Set(products.map(p => p.height))];
+      const diameters = [...new Set(products.map(p => p.diameter))];
+
+      return NextResponse.json({
+        options: {
+          widths,
+          heights,
+          diameters,
+        },
+      });
+    }
+
+    // Regular search
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const where: any = {};
 
     if (filters.width) where.width = filters.width;

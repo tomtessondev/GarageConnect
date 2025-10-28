@@ -3,7 +3,7 @@
     "session:+590691260199",
     {
       "data": {
-        "step": "welcome",
+        "step": "viewing_results",
         "cart": [],
         "searchCriteria": {
           "width": 185,
@@ -99,7 +99,7 @@
           }
         ]
       },
-      "lastActivity": 1761364519679
+      "lastActivity": 1761653673358
     }
   ]
 ]
