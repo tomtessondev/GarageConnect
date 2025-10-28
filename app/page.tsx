@@ -18,21 +18,21 @@ export default function HomePage() {
         <div className="text-center max-w-4xl mx-auto">
           {/* Logo/Title Card */}
           <div className="mb-12">
-            <div className="flex items-center justify-center gap-3 mb-6">
-              <CircleDot className="w-16 h-16 text-blue-600 animate-spin-slow" />
-              <h1 className="text-7xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
+            <div className="flex items-center justify-center gap-2 sm:gap-3 mb-6 flex-wrap">
+              <CircleDot className="w-10 h-10 sm:w-16 sm:h-16 text-blue-600 animate-spin-slow" />
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
                 GarageConnect
               </h1>
-              <CircleDot className="w-16 h-16 text-purple-600 animate-spin-slow" />
+              <CircleDot className="w-10 h-10 sm:w-16 sm:h-16 text-purple-600 animate-spin-slow" />
             </div>
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-gray-200 inline-block">
-              <p className="text-2xl text-gray-800 mb-2 font-bold">
+            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 sm:p-6 shadow-xl border border-gray-200 inline-block mx-4">
+              <p className="text-lg sm:text-xl md:text-2xl text-gray-800 mb-2 font-bold">
                 Vente de Pneus en Guadeloupe
               </p>
-              <p className="text-lg text-gray-600 flex items-center justify-center gap-2">
-                <Sparkles className="w-5 h-5 text-yellow-500" />
-                Trouvez les pneus parfaits pour votre véhicule en quelques clics
-                <Sparkles className="w-5 h-5 text-yellow-500" />
+              <p className="text-sm sm:text-base md:text-lg text-gray-600 flex items-center justify-center gap-2 flex-wrap">
+                <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-500" />
+                <span className="text-center">Trouvez les pneus parfaits pour votre véhicule en quelques clics</span>
+                <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-500" />
               </p>
             </div>
           </div>
